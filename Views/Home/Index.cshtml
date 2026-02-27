@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Add Data Form";
+}
+
+<style>
+
+    .custom-form-container {
+        max-width: 500px;
+        margin: 40px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .custom-form-header {
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .custom-form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .custom-label {
+        width: 100px; 
+        font-size: 16px;
+    }
+
+    .custom-colon {
+        width: 20px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .custom-input-wrapper {
+        flex-grow: 1;
+    }
+
+        .custom-input-wrapper input {
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 16px;
+            border: 1px solid #000;
+            border-radius: 5px; 
+            box-sizing: border-box;
+        }
+
+    .custom-btn-container {
+        text-align: right; 
+        margin-top: 20px;
+    }
+
+    .custom-btn-save {
+        padding: 6px 24px;
+        font-size: 16px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .custom-btn-save:hover {
+            background-color: #f0f0f0;
+        }
+    .custom-input-wrapper input,
+    .custom-input-wrapper select {
+        width: 100%;
+        padding: 6px 12px;
+        font-size: 16px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background-color: #fff;
+    }
+</style>
+
+<div class="custom-form-container">
+    <div class="custom-form-header">
+        หน้าแบบฟอร์มกรอกข้อมูล เมื่อกดปุ่ม ADD จะเป็นช่องสำหรับกรอก
+    </div>
+
+    @using (Html.BeginForm("SaveData", "Home", FormMethod.Post))
+    {
+        <div class="custom-form-group">
+            <div class="custom-label">First Name</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <input type="text" name="FIRSTNAME" id="FIRSTNAME" required />
+            </div>
+        </div>
+
+        <div class="custom-form-group">
+            <div class="custom-label">Last Name</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <input type="text" name="LASTNAME" id="LASTNAME" required />
+            </div>
+        </div>
+
+        <div class="custom-form-group">
+            <div class="custom-label">EMAIL</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <input type="email" name="EMAIL" id="EMAIL" />
+            </div>
+        </div>
+
+        <div class="custom-form-group">
+            <div class="custom-label">Mobile</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <input type="tel" name="MOBILE" id="MOBILE" />
+            </div>
+        </div>
+
+        <div class="custom-form-group">
+            <div class="custom-label">Birthday</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <input type="date" name="BIRTHDAY" id="BIRTHDAY" />
+            </div>
+        </div>
+
+        <div class="custom-form-group">
+            <div class="custom-label">Gender</div>
+            <div class="custom-colon">:</div>
+            <div class="custom-input-wrapper">
+                <select name="GENDER" id="GENDER">
+                    <option value="" disabled selected>-- กรุณาเลือก --</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="custom-btn-container">
+            <button type="submit" class="custom-btn-save">SAVE</button>
+        </div>
+    }
+</div>

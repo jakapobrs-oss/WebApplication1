@@ -1,0 +1,151 @@
+﻿@* กำหนด Model เป็น List ของ User Model ของคุณ (อย่าลืมเปลี่ยน YourProjectName ให้ตรงกับโปรเจกต์จริง) *@
+@model IEnumerable<WebApplication1.Models.Table_1>
+
+@{
+    ViewBag.Title = "Users List";
+}
+
+<style>
+    /* ตั้งค่าโครงสร้างของหน้าและตารางให้เหมือนในรูป */
+    .table-container {
+        max-width: 900px;
+        margin: 40px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .table-header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .table-title {
+        font-size: 20px;
+        color: #333;
+    }
+
+    .btn-add {
+        padding: 5px 20px;
+        font-size: 16px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #000;
+        cursor: pointer;
+    }
+
+        .btn-add:hover {
+            background-color: #f0f0f0;
+        }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+        .custom-table th, .custom-table td {
+            border: 1px solid #000;
+            padding: 8px 12px;
+            font-size: 15px;
+        }
+
+        .custom-table th {
+            background-color: #fff;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .custom-table td.text-center {
+            text-align: center;
+        }
+
+    /* สไตล์สำหรับปุ่ม Action (EDIT / DELETE) */
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .btn-action {
+        padding: 4px 12px;
+        font-size: 14px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #000;
+        cursor: pointer;
+    }
+
+        .btn-action:hover {
+            background-color: #f0f0f0;
+        }
+</style>
+
+<div class="table-container">
+    <div class="table-header-section">
+        <div class="table-title">หน้าแสดงข้อมูลทั้งหมด</div>
+        @* ลิงก์ไปยังหน้าฟอร์ม Add (เปลี่ยน "Create" เป็นชื่อ Action ฟอร์มของคุณ) *@
+        <a href="@Url.Action("Index", "Home")" class="btn-add">ADD</a>
+    </div>
+
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.ID</td>
+                        @* เอา FirstName และ LastName มาต่อกันในช่องเดียว *@
+                        <td>@item.FIRSTNAME @item.LASTNAME</td>
+                        <td>@item.EMAIL</td>
+                        <td class="text-center">@item.MOBILE</td>
+                        <td class="text-center">
+                            @* กรณีที่ Birthday เป็น DateTime ให้ใช้ .ToString("dd/MM/yyyy") แต่ถ้าเป็น String อยู่แล้วลบออกได้ครับ *@
+                            @(item.BIRTHDAY != null ? Convert.ToDateTime(item.BIRTHDAY).ToString("dd/MM/yyyy") : "")
+                        </td>
+                        <td>@item.GENDER</td>
+                        <td>
+                            <div class="action-buttons">
+                                @* ส่ง ID ไปยัง Action Edit และ Delete *@
+                                <a href="@Url.Action("Edit", "User", new { ID = item.ID })" class="btn-action">EDIT</a>
+                                <a href="@Url.Action("Delete", "User", new { ID = item.ID })" class="btn-action" onclick="return confirm('คุณต้องการลบข้อมูลนี้ใช่หรือไม่?');">DELETE</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center" style="padding: 20px;">ไม่มีข้อมูล</td>
+                </tr>
+            }
+            @* บรรทัดจำลองเผื่อให้ตารางดูเต็มเหมือนในรูป (สามารถลบออกได้ถ้าใช้งานจริง) *@
+            <tr>
+                <td class="text-center">.</td>
+                <td>.</td>
+                <td>.</td>
+                <td class="text-center">.</td>
+                <td class="text-center">.</td>
+                <td>.</td>
+                <td class="text-center">.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
